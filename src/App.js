@@ -21,7 +21,6 @@ export default function App() {
     ]));
     setInputValue('');
   }
-  console.log(todos);
 
   const clearHandler = () => {
     setTodos([]);
@@ -32,6 +31,12 @@ export default function App() {
     i !== item
     ))
   }
+
+    const [isCross, setCross] = useState(false);
+    const toggle = (i) => {
+      if(!isCross) setCross(i);
+                else setCross(false);
+    };
   
   return (
     <div>
@@ -41,10 +46,16 @@ export default function App() {
       <button type='submit'>Submit</button>
       <button type='reset' onClick={clearHandler}>Clear List</button>
       </form>
-      <ul>{todos.map((todo, i) => <li key={i}>
+      <ul>{todos.map((todo, i) => <li 
+      key={i}
+      className={isCross === i ? "cross" : ""}
+      > 
         {todo}
         {<button onClick={() => deleteHandler(i)}>X</button>}
-        {<button>edit</button>}
+        {<button 
+        onClick={() => toggle(i)}
+        >
+          done</button>}
         </li>)}
         </ul>
     </div>
